@@ -12,7 +12,7 @@ class Todo(models.Model):
 
     title = models.CharField(max_length=100)
     details = models.TextField()
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=timezone.now, editable=False)
     due_date = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OPEN')
 

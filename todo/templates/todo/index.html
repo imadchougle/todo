@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>TO DO APP</title>
+    <title>DJANGO TO-DO APP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom Styles -->
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -21,28 +21,26 @@
         }
 
         .card {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5),
-                        0 6px 20px 0 rgba(0, 0, 0, 0.39);
-            background: lightpink;
-            margin-bottom: 5%;
-            border-radius: 25px;
-            padding: 2%;
-            overflow: auto;
-            resize: both;
-            text-overflow: ellipsis;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1),
+                        0 6px 20px 0 rgba(0, 0, 0, 0.1);
+            background: #fce7f3;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            padding: 20px;
+            transition: background 0.3s ease-in-out;
         }
 
         .card:hover {
-            background: lightblue;
+            background: #ffd3e2;
         }
 
         .submit-form {
             text-align: center;
-            padding: 3%;
-            background: pink;
-            border-radius: 25px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4),
-                        0 6px 20px 0 rgba(0, 0, 0, 0.36);
+            padding: 20px;
+            background: #ffcccb;
+            border-radius: 40px;
+            box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1),
+                        0 50px 20px 0 rgba(0, 0, 0, 0.1);
         }
 
         h1 {
@@ -53,18 +51,32 @@
             border-top: 1px solid #6c757d;
         }
 
-        .alert {
-            margin-top: 20px;
-        }
-
         .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
+            background-color: #ff4081;
+            border-color: #ff4081;
+            transition: background 0.3s ease-in-out;
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
+            background-color: #e6007e;
+            border-color: #e6007e;
+        }
+
+        /* Increase font size for details text */
+        .view-mode span {
+            font-size: 18px;
+            display: inline-block; /* Ensures the span only takes up the necessary width */
+            max-width: 100%; /* Limits the maximum width */
+            overflow: hidden; /* Hides any content that overflows */
+            text-overflow: ellipsis; /* Adds ellipsis for overflowed text */
+        }
+
+        /* Adjust the width of the input within the form */
+        .submit-form input {
+            width: 100%; /* Adjust the width as needed */
+            max-width: 300px; /* Set a maximum width to prevent excessive stretching */
+            box-sizing: border-box; /* Include padding and border in the width */
+            margin-bottom: 10px; /* Add some space between input fields */
         }
 
         /* Add the new styles for inline editing */
@@ -95,6 +107,7 @@
 
     <div class="row">
         <div class="col-md-8">
+            <!-- Loop through items in the list -->
             {% for item in list %}
             <div class="card">
                 <center><b id="itemTitle{{ item.id }}" class="view-mode">{{ item.title }}</b></center>
@@ -108,10 +121,11 @@
                 <strong>Due Date:</strong>
                 <span id="itemDueDate{{ item.id }}" class="view-mode">{{ item.due_date }}</span>
                 <strong>Status:</strong>
-    <span id="itemStatus{{ item.id }}" class="view-mode">{{ item.get_status_display }}</span>
+                <span id="itemStatus{{ item.id }}" class="view-mode">{{ item.get_status_display }}</span>
 
                 <br />
-                <a href="{% url 'update_status' item.id %}" class="btn btn-warning">Edit Status</a>
+                <!-- Edit Status button -->
+                <a href="{% url 'update_status' item.id %}" class="btn btn-primary">Edit Status</a>
                 <br />
                 <br />
             </div>
@@ -122,6 +136,7 @@
 
         <div class="col-md-3">
             <div class="submit-form">
+                <!-- To-Do Form -->
                 <form method="POST">
                     {% csrf_token %}
                     {{ forms }}
@@ -132,7 +147,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
