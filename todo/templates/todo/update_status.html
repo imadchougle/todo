@@ -1,0 +1,37 @@
+<!-- update_status.html -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <!-- ... (your existing head content) ... -->
+</head>
+
+<body class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>Update Status</h1>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select class="form-control" id="status" name="status">
+                        {% for value, display in todo.STATUS_CHOICES %}
+                        <option value="{{ value }}" {% if value == todo.status %}selected{% endif %}>
+                            {{ display }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Update Status" />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

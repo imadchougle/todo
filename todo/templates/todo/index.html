@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- Style -->
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -84,20 +83,9 @@
             display: none;
         }
     </style>
-
 </head>
 
 <body class="container">
-
-
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-info">
-        <strong>{{ message }}</strong>
-    </div>
-    {% endfor %}
-    {% endif %}
-
     <div class="row">
         <div class="col-md-12 text-center">
             <h1><i>DJANGO TO-DO APP</i></h1>
@@ -119,7 +107,11 @@
                 <hr/>
                 <strong>Due Date:</strong>
                 <span id="itemDueDate{{ item.id }}" class="view-mode">{{ item.due_date }}</span>
+                <strong>Status:</strong>
+    <span id="itemStatus{{ item.id }}" class="view-mode">{{ item.get_status_display }}</span>
+
                 <br />
+                <a href="{% url 'update_status' item.id %}" class="btn btn-warning">Edit Status</a>
                 <br />
                 <br />
             </div>
