@@ -19,5 +19,6 @@ def index(request):
 		"list": item_list,
 		"title": "TODO LIST",
 	}
+
 	return render(request, 'todo/index.html', page)
 

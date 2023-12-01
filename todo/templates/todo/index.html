@@ -84,55 +84,11 @@
             display: none;
         }
     </style>
-    <!-- Add your custom script -->
-    <script>
-        $(document).ready(function () {
-            // Function to toggle between edit and view mode
-            function toggleEditMode(itemId) {
-                $('#itemTitle' + itemId).toggleClass('edit-mode view-mode');
-                $('#itemDate' + itemId).toggleClass('edit-mode view-mode');
-                $('#itemDetails' + itemId).toggleClass('edit-mode view-mode');
-                $('#itemDueDate' + itemId).toggleClass('edit-mode view-mode');
-                $('#editButton' + itemId).toggle();
-                $('#updateButton' + itemId).toggle();
-            }
 
-            // Click event for the Edit button
-            $('.edit-button').on('click', function () {
-                var itemId = $(this).data('item-id');
-                toggleEditMode(itemId);
-            });
-
-            // Click event for the Update button
-            $('.update-button').on('click', function () {
-                var itemId = $(this).data('item-id');
-                // Perform AJAX request to update the item in the backend
-                // (you may need to adjust this based on your Django views)
-                $.ajax({
-                    url: '/edit/' + itemId,
-                    type: 'POST',
-                    data: {
-                        // Include the updated fields here
-                        // For example: title: $('#itemTitle' + itemId + ' input').val(),
-                        // ...
-                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                    },
-                    success: function (data) {
-                        // You can handle the success response as needed
-                        console.log('Item updated successfully');
-                        toggleEditMode(itemId);  // Toggle back to view mode
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        // Handle the error
-                        console.error('Error updating item: ' + errorThrown);
-                    },
-                });
-            });
-        });
-    </script>
 </head>
 
 <body class="container">
+
 
     {% if messages %}
     {% for message in messages %}
@@ -155,21 +111,17 @@
             <div class="card">
                 <center><b id="itemTitle{{ item.id }}" class="view-mode">{{ item.title }}</b></center>
                 <hr/>
+                <strong>Timestamp:</strong>
                 <span id="itemDate{{ item.id }}" class="view-mode">{{ item.date }}</span>
                 <hr/>
+                <strong>Description:</strong>
                 <span id="itemDetails{{ item.id }}" class="view-mode">{{ item.details }}</span>
                 <hr/>
                 <strong>Due Date:</strong>
                 <span id="itemDueDate{{ item.id }}" class="view-mode">{{ item.due_date }}</span>
                 <br />
-                <!-- Remove the lines below -->
-                <!-- <strong>Status:</strong> -->
-                <!-- <span id="itemStatus{{ item.id }}" class="view-mode">{{ item.status }}</span> -->
                 <br />
                 <br />
-                <!-- Remove the following lines -->
-                <!-- <button id="editButton{{ item.id }}" class="btn btn-primary edit-button" data-item-id="{{ item.id }}">Edit</button> -->
-                <!-- <button id="updateButton{{ item.id }}" class="btn btn-primary update-button" data-item-id="{{ item.id }}" style="display: none;">Update</button> -->
             </div>
             {% endfor %}
         </div>
