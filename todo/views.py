@@ -1,13 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-# import todo form and models
-
 from .forms import TodoForm
 from .models import Todo
-
-###############################################
-
 
 def index(request):
 
