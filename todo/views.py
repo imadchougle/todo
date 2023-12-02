@@ -1,9 +1,24 @@
 # views.py
+from rest_framework import generics
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-
 from .forms import TodoForm
 from .models import Todo
+from .serializers import TodoSerializer
+
+class TodoListCreateView(generics.ListCreateAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+
+class TodoRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 def index(request):
     item_list = Todo.objects.order_by("-date")
@@ -12,7 +27,7 @@ def index(request):
         form = TodoForm(request.POST)
         if form.is_valid():
             todo = form.save(commit=False)
-            todo.status = 'OPEN'  # Set default status to OPEN
+            todo.status = 'OPEN'
             todo.save()
             return redirect('todo')
 
