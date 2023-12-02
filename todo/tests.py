@@ -15,3 +15,6 @@ class TodoIntegrationTestCase(TestCase):
         response = self.client.get(reverse('todo'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Test Todo")
+
+
+
