@@ -52,3 +52,4 @@ def update_status(request, todo_id):
         return redirect('todo')
 
     return render(request, 'todo/update_status.html', {'todo': todo})
+
