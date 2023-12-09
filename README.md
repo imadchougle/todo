@@ -1,6 +1,5 @@
 # todo
 
-Hosted app url: https://imadchougle.pythonanywhere.com/
 
 to run the project
 
